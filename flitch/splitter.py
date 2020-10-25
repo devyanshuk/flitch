@@ -9,12 +9,12 @@ from .utils import path_exists, path_is_file
 
 
 def split_into_parts(
-    file_path: str, output_path: str, parts: int, ratio: Union[list, tuple] = None, prefix: str = "chunk_"
+    file_path: Union[str, list, tuple], output_path: str, parts: int, ratio: Union[list, tuple] = None, prefix: str = "chunk_"
 ):
     """Splits provided file into chunks based on parts from total size of file
 
     Args:
-        file_path (str): Path to the file to be splitted
+        file_path (str, tuple, list): Path to the file(s) to be splitted
         output_path (str): Output folder path
         parts (int): Parts value for splitting
         ratio (list or tuple, optional): Optional value given to split files with bytes divided as per input list
