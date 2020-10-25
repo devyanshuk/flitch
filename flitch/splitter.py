@@ -2,20 +2,22 @@
 
 # Standard Library
 from os import path, mkdir
+from typing import Union
 
 # Local
 from .utils import path_exists, path_is_file
 
 
 def split_into_parts(
-    file_path: str, output_path: str, parts: int, prefix: str = "chunk_"
+    file_path: str, output_path: str, parts: int, ratio: Union[list, tuple] = None, prefix: str = "chunk_"
 ):
     """Splits provided file into chunks based on parts from total size of file
 
     Args:
         file_path (str): Path to the file to be splitted
         output_path (str): Output folder path
-        parts (int): parts value for splitting
+        parts (int): Parts value for splitting
+        ratio (list or tuple, optional): Optional value given to split files with bytes divided as per input list
         prefix (str, optional): Optional prefix to chunks. Defaults to "chunk_".
 
     Raises:
@@ -31,7 +33,7 @@ def split_into_parts(
 
     with open(file_path, "rb") as mfile:
         content = bytearray(path.getsize(file_path))
-        chunk_size = int(len(content) / parts)
+        chunk_size = len(content) // parts
         mfile.readinto(content)
 
         for count, i in enumerate(range(0, len(content), chunk_size)):
